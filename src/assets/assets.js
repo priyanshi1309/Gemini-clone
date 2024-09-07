@@ -13,7 +13,24 @@ import message_icon from './message_icon.png'
 import code_icon from './code_icon.png'
 import send_icon from './send_icon.png'
 import gemini_icon from './gemini_icon.png'
-
+const prompts = [
+    {
+        prompt: "What is react",
+        src: code_icon
+    },
+    {
+        prompt: "Places to visit in bangalore",
+        src: compass_icon
+    },
+    {
+        prompt: "Highest Mountain Peak",
+        src: bulb_icon
+    },
+    {
+        prompt: "Cheesecake recipe",
+        src: message_icon
+    }
+]
 export const assets = {
     history_icon,
     menu_icon,
@@ -29,5 +46,6 @@ export const assets = {
     message_icon,
     code_icon,
     send_icon,
-    gemini_icon
+    gemini_icon,
+    prompts
 }

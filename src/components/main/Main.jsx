@@ -4,8 +4,11 @@ import { assets } from '../../assets/assets'
 import { Context } from '../../context/context'
 
 const Main = () => {
-    const {onSent, recentPrompt, showResult, loading, resultData, setInput, input} = useContext(Context);
-
+    const {onSent, recentPrompt, showResult, loading, resultData, setInput, input, setPrevPrompts} = useContext(Context);
+    const loadPrompt = async (prompt) => {
+        setPrevPrompts(prev=>[...prev, prompt]);
+        await  onSent(prompt)
+    }
     return (
     <div className='main'>
         <div className="nav">
@@ -21,22 +24,14 @@ const Main = () => {
                 <p>How can I help you today?</p>
             </div>
             <div className="cards">
-                <div className="card">
-                    <p>Lorem dolor sit ipsum dolor sit.</p>
-                    <img src={assets.compass_icon} alt="" />
-                </div>
-                <div className="card">
-                    <p>Lorem ipsum dolor dolor sit sit.</p>
-                    <img src={assets.bulb_icon} alt="" />
-                </div>
-                <div className="card">
-                    <p>Lorem ipsum dolor sit dolor sit.</p>
-                    <img src={assets.message_icon} alt="" />
-                </div>
-                <div className="card">
-                    <p>Lorem ipsum dolor sit dolor sit.</p>
-                    <img src={assets.code_icon} alt="" />
-                </div>
+            {assets.prompts.map((item, index)=> {
+                return (
+                    <div className="card" key={index}>
+                        <p onClick={()=> {loadPrompt(item.prompt)}}>{item.prompt}</p>
+                        <img src={item.src} alt="" />
+                    </div>
+                )
+            })}
             </div>
             </>
             :
@@ -58,7 +53,6 @@ const Main = () => {
                 </div>
             </div>
             }
-            
             <div className="main-bottom">
                 <div className="search-box">
                     <input onChange={(e)=> setInput(e.target.value)} value={input} type="text" placeholder='Enter a prompt here' id="" />
